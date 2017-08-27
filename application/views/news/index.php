@@ -4,9 +4,9 @@
 
         <h3><?php echo $news_item['title']; ?></h3>
         <div class="main">
-                <?php echo $news_item['text']; ?>
+            <?php echo $news_item['text']; ?>
         </div>
-        <p><a href="<?php echo site_url('news/'.$news_item['jumlah']); ?>">View article</a></p>
+        <p><a href="<?php echo 'http://handy.orange.com/CodeIgniter-3.1.5/news/'.$news_item['slug']; ?>">View article</a></p>
         
 
 <?php endforeach; ?>

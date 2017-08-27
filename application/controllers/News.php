@@ -18,13 +18,16 @@ class News extends CI_Controller {
 
         }
 
-        public function view($jumlah = NULL)
+        public function view($slug = NULL)
         {
-                $data['news_item'] = $this->news_model->get_news($jumlah);
+                // echo "<pre>".print_r($this,true)."</pre>";
+                // var_dump($slug);
+                // die();
+                $data['news_item'] = $this->news_model->get_news($slug);
 
                 if (empty($data['news_item']))
                 {
-                        show_404();
+                        // show_404();
                 }
 
                 $data['title'] = $data['news_item']['title'];
