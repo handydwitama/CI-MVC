@@ -6,6 +6,8 @@ class News_model extends CI_Model {
                 $this->load->database();
         }
 
+       
+	
         public function get_news($slug = FALSE)
 		{
 	        if ($slug === FALSE)
