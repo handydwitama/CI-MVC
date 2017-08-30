@@ -4,7 +4,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  	<link rel="stylesheet" type="text/css" href="public/mystyle.css">
+  	<link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>public/mystyle.css">
         </head>
         <body>
 
@@ -26,7 +26,7 @@
               <li><a href="#">Contact</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+              <li><a href="http://handy.orange.com/CodeIgniter-3.1.5/crud/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
             </ul>
           </div>
         </div>

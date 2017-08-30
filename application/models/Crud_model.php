@@ -3,22 +3,24 @@ class Crud_model extends CI_Model {
 
     public function __construct()
     {
-        parent::__construct();
-        $this->load->helper('form');
-        $this->load->library('form_validation');
-        $this->load->library('session');
+             
         $this->load->database();
     }
 
     public function login($data)
     {
+        $n = $data['username'];
+        $p = $data['password'];
         $this->db->select('*');
         $this->db->from('username');
-        $this->db->where('nama', $data['nama']);
-        $this->db->where('password', $data['password']);
+        $this->db->where('nama', $n);
+        $this->db->where('password', $p);
+        $this->db->limit(1);
         $query = $this->db->get();
         if ($query->num_rows() == 1) {
-            return $query->result_array();
+            return true;
+        }else{
+            return false;
         }
         
     }
@@ -33,7 +35,43 @@ class Crud_model extends CI_Model {
 
 	    $query = $this->db->get_where('news', array('id' => $id));
 	    return $query->row_array();
-	}
+    }
+    
+    public function user_info($username) 
+    {
+        $condition = "nama =" . "'" . $username . "'";
+        $this->db->select('*');
+        $this->db->from('username');
+        $this->db->where($condition);
+        $this->db->limit(1);
+        $query = $this->db->get();
+        
+        if ($query->num_rows() == 1) {
+            return $query->result();
+        } else {
+            return false;
+        }
+    }
+    public function regist($data) {
+        
+        
+        $condition = "nama =" . "'" . $data['nama'] . "'";
+        $this->db->select('*');
+        $this->db->from('username');
+        $this->db->where($condition);
+        $this->db->limit(1);
+        $query = $this->db->get();
+
+        if ($query->num_rows() == 0) {
+            $this->db->insert('username', $data);
+            if ($this->db->affected_rows() > 0) {
+                return true;
+            }
+        } else {
+        return false;
+        }
+    }
+        
 }
 
 

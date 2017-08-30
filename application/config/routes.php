@@ -53,6 +53,9 @@ $route['news/(:any)'] = 'News/view';
 $route['news'] = 'News';
 $route['default_controller'] = 'Pages/view';
 $route['crud'] = 'Crud';
+$route['crud/login'] = 'Crud/login';
+$route['crud/registrasi'] = 'Crud/new_regist';
+$route['crud/logout'] = 'Crud/logout';
 $route['bisaaja'] = 'Homepage';
 
 ?>
