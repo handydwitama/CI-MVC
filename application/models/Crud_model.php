@@ -25,7 +25,7 @@ class Crud_model extends CI_Model {
         
     }
 	    
-    public function get_list($id = FALSE)
+    public function get_all_user($id = FALSE)
 	{   
 	    if ($id === FALSE)
 	    {
@@ -33,7 +33,7 @@ class Crud_model extends CI_Model {
 	        return $query->result_array();
 		}
 
-	    $query = $this->db->get_where('news', array('id' => $id));
+	    $query = $this->db->get_where('username', array('id' => $id));
 	    return $query->row_array();
     }
     
@@ -71,6 +71,20 @@ class Crud_model extends CI_Model {
         return false;
         }
     }
+
+    public function get_all_barang($id_barang = FALSE)
+	{   
+	    if ($id_barang === FALSE)
+	    {
+	        $query = $this->db->get('master_barang');
+	        return $query->result_array();
+		}
+
+	    $query = $this->db->get_where('master_barang', array('id_barang' => $id_barang));
+	    return $query->row_array();
+    }
+
+    
         
 }
 
