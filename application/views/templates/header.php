@@ -21,9 +21,9 @@
           <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
               <li class="active"><a href="#">Home</a></li>
-              <li><a href="#">About</a></li>
-              <li><a href="#">Projects</a></li>
-              <li><a href="#">Contact</a></li>
+              <li><a href="<?php echo 'lihat_user'; ?>">List User</a></li>
+              <li><a href="#">List Barang</a></li>
+              <li><a href="#">Laporan Penjualan</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <li><a href="http://handy.orange.com/CodeIgniter-3.1.5/crud/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>

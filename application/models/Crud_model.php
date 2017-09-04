@@ -84,6 +84,12 @@ class Crud_model extends CI_Model {
 	    return $query->row_array();
     }
 
+    public function get_user($id)
+	{   
+	    $query = $this->db->get_where('username', array('id' => $id));
+	    return $query->row_array();
+    }
+
     
         
 }

@@ -43,7 +43,7 @@ class Crud extends CI_Controller {
                 );
             $result = $this->crud_model->regist($data);
             if ($result == TRUE) {
-                $data['message_display'] = 'Registration Successfully !';
+                $data['message_display'] = 'Registration Successful !';
                 $this->load->view('penjualan/login', $data);
             } else {
                 $data['message_display'] = 'Username already exist !';
@@ -189,18 +189,105 @@ class Crud extends CI_Controller {
                                 '$today', '$k[$i]', 
                                 (SELECT (SELECT harga FROM master_barang WHERE nama_barang='$value[$i]') * '$k[$i]'))";
 
-                        $query=$this->db->query($sql);
-                        //$resu = $query->result_array();
                         
                         $sql1 = "UPDATE master_barang SET stock = (stock - '$k[$i]') WHERE nama_barang='$value[$i]'";
-                        $qu= $this->db->query($sql1);
-                        //$resul = $qu->result_array();
+                        if($query=$this->db->query($sql))
+                        {
+                            if($qu= $this->db->query($sql1)){
+                                $data['message_display'] = 'Pembelian Berhasil !';
+                            }
+                            else{
+                                $data['message_display'] = 'Pembelian Gagal Dilakukan !';
+                            }
+                        }
                     }
                 }
             }
+        }
+        
+        $data['barang'] = $this->crud_model->get_all_barang();
+        
+        $this->load->view('templates/header');
+        $this->load->view('templates/left_bar');
+        $this->load->view('penjualan/pembelian', $data);
+        $this->load->view('templates/right_bar');
+        $this->load->view('templates/footer');
+    }
+    public function lihat_user($data = FALSE)
+    {
+        $data['user'] = $this->crud_model->get_all_user();
+        $this->load->view('templates/header');
+        $this->load->view('templates/left_bar');
+        $this->load->view('penjualan/alluser', $data);
+        $this->load->view('templates/right_bar');
+        $this->load->view('templates/footer');
+    }
+    public function detail_user()
+    {
+        $id = $this->input->get('id');
+        $data['user'] = $this->crud_model->get_user($id);
+        $this->load->view('templates/header');
+        $this->load->view('templates/left_bar');
+        $this->load->view('penjualan/detail_user', $data);
+        $this->load->view('templates/right_bar');
+        $this->load->view('templates/footer');
+    }
+
+    public function edit_user()
+    {
+        $id = $this->input->get('id');
+        $nama = $this->input->post('username');
+        $pw = $this->input->post('password');
+        $umur = $this->input->post('umur');
+        $email = $this->input->post('email');
+        $alamat = $this->input->post('alamat');
+        $data['message_display'] = '';
+        if(isset($pw)){
+            $arr = array(
+                'nama' => $nama,
+                'password' => $pw,
+                'Umur' => $umur,
+                'email' => $email,
+                'alamat' => $alamat 
+            );
+            $this->db->where('id', $id);
+            $this->db->update('username', $arr);
+            
+                $data['user'] = $this->crud_model->get_all_user();
+                $data['message_display'] = 'Edit User Berhasil !';
+                $this->load->view('templates/header');
+                $this->load->view('templates/left_bar');
+                $this->load->view('penjualan/alluser', $data);
+                $this->load->view('templates/right_bar');
+                $this->load->view('templates/footer');
             
         }
-
+        else{
+            $data['user'] = $this->crud_model->get_user($id);
+            $data['id'] = $id;
+            $this->load->view('templates/header');
+            $this->load->view('templates/left_bar');
+            $this->load->view('penjualan/edit_user', $data);
+            $this->load->view('templates/right_bar');
+            $this->load->view('templates/footer');
+        }
     }
+    public function del_user()
+    {
+        $id = $this->input->get('id');
+
+        $this->db->where('id', $id);
+        $this->db->db_debug = FALSE; 
+        if($this->db->delete('username') == TRUE){
+            
+            header("location: http://handy.orange.com/CodeIgniter-3.1.5/crud/lihat_user");
+        }
+        else{
+            $data['message_display'] = 'Remove User Gagal !';
+            $this->lihat_user($data);
+        }
+        
+    }
+    
 }
 ?>

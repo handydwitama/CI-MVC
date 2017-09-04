@@ -12,7 +12,7 @@
 .sidenav {
   padding-top: 20px;
   background-color: #f1f1f1;
-  height: 100%;
+  height: auto;
 }
 
 /* Set black background color, white text and some padding */
@@ -25,13 +25,14 @@ footer {
   width:960px;
   margin:10px auto;
   font-family:raleway;
+  text-align: center;
   }
 
   span{
     color:red;
     }
 
-#login{
+  #login{
   
   width:300px;
   float: left;

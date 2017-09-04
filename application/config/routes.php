@@ -58,6 +58,10 @@ $route['crud/registrasi'] = 'Crud/new_regist';
 $route['crud/logout'] = 'Crud/logout';
 $route['crud/buy'] = 'Crud/buy';
 $route['crud/buy_proses'] = 'Crud/buy_proses';
+$route['crud/lihat_user'] = 'Crud/lihat_user';
+$route['crud/detail_user'] = 'Crud/detail_user';
+$route['crud/edit_user'] = 'Crud/edit_user';
+$route['crud/del_user'] = 'Crud/del_user';
 $route['bisaaja'] = 'Homepage';
 
 ?>

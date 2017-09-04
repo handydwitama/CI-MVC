@@ -14,7 +14,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">    
 </head>
 <body>
-
+    <?php
+        if (isset($message_display)) {
+            echo "<div class='message'>";
+            echo $message_display;
+            echo "</div>";
+        }
+    ?>
 
         <div class="col-sm-8 text-left"> 
         <form id="myForm" method="POST" action="http://handy.orange.com/CodeIgniter-3.1.5/crud/buy_proses">
