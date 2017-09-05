@@ -288,6 +288,187 @@ class Crud extends CI_Controller {
         }
         
     }
+
+    public function lihat_barang($data = FALSE)
+    {
+        $data['barang'] = $this->crud_model->get_all_barang();
+        $this->load->view('templates/header');
+        $this->load->view('templates/left_bar');
+        $this->load->view('penjualan/allbarang', $data);
+        $this->load->view('templates/right_bar');
+        $this->load->view('templates/footer');
+    }
+
+    public function add_barang() {
+        
+        $this->form_validation->set_rules('nama_barang', 'Nama barang', 'required');
+        $this->form_validation->set_rules('stock', 'Stock', 'required');
+        $this->form_validation->set_rules('harga', 'Harga', 'required');
+          
+        if($this->form_validation->run() == FALSE) {
+            $this->load->view('templates/header');
+            $this->load->view('templates/left_bar');
+            $this->load->view('penjualan/add_barang');
+            $this->load->view('templates/right_bar');
+            $this->load->view('templates/footer');
+        }else{
+            $data = array(
+                'id_barang' => '',
+                'nama_barang' => $this->input->post('nama_barang'),
+                'stock' => $this->input->post('stock'),
+                'harga' => $this->input->post('harga')                      
+            );
+            $result = $this->crud_model->addbarang($data);
+            if($result == TRUE){
+                $data['barang'] = $this->crud_model->get_all_barang();
+                $data['message_display'] = 'Add Barang Sukses !';
+                $this->load->view('templates/header');
+                $this->load->view('templates/left_bar');
+                $this->load->view('penjualan/allbarang', $data);
+                $this->load->view('templates/right_bar');
+                $this->load->view('templates/footer');
+            }else{
+                $data['barang'] = $this->crud_model->get_all_barang();
+                $data['message_display'] = 'Barang sudah ada !';
+                $this->load->view('templates/header');
+                $this->load->view('templates/left_bar');
+                $this->load->view('penjualan/allbarang', $data);
+                $this->load->view('templates/right_bar');
+                $this->load->view('templates/footer');
+            }
+        }
+    }
+
+    public function edit_barang()
+    {
+        $id = $this->input->get('id');
+        $nama_barang = $this->input->post('nama_barang');          
+        $stock = $this->input->post('stock');
+        $harga = $this->input->post('harga');
+        $data['message_display'] = '';
+        if(isset($nama_barang)){
+            $arr = array(
+                'nama_barang' => $nama_barang,
+                'stock' => $stock,
+                'harga' => $harga
+            );
+            $this->db->where('id_barang', $id);
+            if($this->db->update('master_barang', $arr) == TRUE){
+                $data['barang'] = $this->crud_model->get_all_barang();
+                $data['message_display'] = 'Edit User Berhasil !';
+                $this->load->view('templates/header');
+                $this->load->view('templates/left_bar');
+                $this->load->view('penjualan/allbarang', $data);
+                $this->load->view('templates/right_bar');
+                $this->load->view('templates/footer');
+              }
+            else{
+                $data['barang'] = $this->crud_model->get_all_barang();
+                $data['message_display'] = 'Edit User Gagal !';
+                $this->load->view('templates/header');
+                $this->load->view('templates/left_bar');
+                $this->load->view('penjualan/allbarang', $data);
+                $this->load->view('templates/right_bar');
+                $this->load->view('templates/footer');
+            }
+        }
+        else{
+              $data['barang'] = $this->crud_model->get_barang($id);
+              $data['id'] = $id;
+              $this->load->view('templates/header');
+              $this->load->view('templates/left_bar');
+              $this->load->view('penjualan/edit_barang', $data);
+              $this->load->view('templates/right_bar');
+              $this->load->view('templates/footer');
+        }
+    }
+
+    public function del_barang()
+    {
+        $id = $this->input->get('id');
+
+        $this->db->where('id_barang', $id);
+        $this->db->db_debug = FALSE; 
+        if($this->db->delete('master_barang') == TRUE){
+            
+            header("location: http://handy.orange.com/CodeIgniter-3.1.5/crud/lihat_barang");
+        }
+        else{
+            $data['message_display'] = 'Remove Barang Gagal !';
+            $this->lihat_barang($data);
+        }
+        
+    }
+
+    public function laporan()
+    {
+        $this->load->view('templates/header');
+        $this->load->view('templates/left_bar');
+        $this->load->view('penjualan/laporan');
+        $this->load->view('templates/right_bar');
+        $this->load->view('templates/footer');
+    }
+
+    public function laporan_by_user()
+    {
+        $data['item'] = $this->crud_model->get_laporan_user();
+        $this->load->view('templates/header');
+        $this->load->view('templates/left_bar');
+        $this->load->view('penjualan/laporan_user', $data);
+        $this->load->view('templates/right_bar');
+        $this->load->view('templates/footer');
+    }
+
+    public function all_laporan_user()
+    {
+        $nama = $this->input->get('nama');
+        $data['item'] = $this->crud_model->get_detail_laporan1($nama);
+        $data['nama'] = $nama;
+        $this->load->view('templates/header');
+        $this->load->view('templates/left_bar');
+        $this->load->view('penjualan/all_laporan_user', $data);
+        $this->load->view('templates/right_bar');
+        $this->load->view('templates/footer');
+    }
+
+    public function printpdf_1()
+    {
+        $nama = $this->input->get('nama');
+        $data['item'] = $this->crud_model->get_detail_laporan1($nama);
+        $data['nama'] = $nama;
+        $this->load->view('penjualan/printpdf1', $data);
+    }
+    
+
+    public function laporan_by_date()
+    {
+        $data['item'] = $this->crud_model->get_laporan_date();
+        $this->load->view('templates/header');
+        $this->load->view('templates/left_bar');
+        $this->load->view('penjualan/laporan_date', $data);
+        $this->load->view('templates/right_bar');
+        $this->load->view('templates/footer');
+    }
+    public function all_laporan_date()
+    {
+        $id = $this->input->get('id');
+        $data['item'] = $this->crud_model->get_detail_laporan2($id);
+        $data['id'] = $id;
+        $this->load->view('templates/header');
+        $this->load->view('templates/left_bar');
+        $this->load->view('penjualan/all_laporan_date', $data);
+        $this->load->view('templates/right_bar');
+        $this->load->view('templates/footer');
+    }
+
+    public function printpdf_2()
+    {
+        $id = $this->input->get('id');
+        $data['item'] = $this->crud_model->get_detail_laporan2($id);
+        $data['id'] = $id;
+        $this->load->view('penjualan/printpdf2', $data);
+    }
+
     
 }
 ?>

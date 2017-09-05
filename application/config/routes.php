@@ -62,6 +62,18 @@ $route['crud/lihat_user'] = 'Crud/lihat_user';
 $route['crud/detail_user'] = 'Crud/detail_user';
 $route['crud/edit_user'] = 'Crud/edit_user';
 $route['crud/del_user'] = 'Crud/del_user';
+$route['crud/lihat_barang'] = 'Crud/lihat_barang';
+$route['crud/edit_barang'] = 'Crud/edit_barang';
+$route['crud/add_barang'] = 'Crud/add_barang';
+$route['crud/del_barang'] = 'Crud/del_barang';
+$route['crud/laporan'] = 'Crud/laporan';
+$route['crud/laporan/user'] = 'Crud/laporan_by_user';
+$route['crud/laporan/detail_laporan1'] = 'Crud/all_laporan_user';
+$route['crud/laporan/printpdf1.php'] = 'Crud/printpdf_1';
+$route['crud/laporan/date'] = 'Crud/laporan_by_date';
+$route['crud/laporan/detail_laporan2'] = 'Crud/all_laporan_date';
+$route['crud/laporan/printpdf2.php'] = 'Crud/printpdf_2';
+
 $route['bisaaja'] = 'Homepage';
 
 ?>

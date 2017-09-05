@@ -31,11 +31,11 @@
 
             <table  id="theTable" border='1' Width='600'>  
                 <tr>    
-                    <th> Nomor </th>
-                    <th> Nama Barang </th>
-                    <th> Harga Satuan</th>
-                    <th> Quantity </th>
-                    <th> Jumlah Harga</th>
+                    <th class = "text-center"> Nomor </th>
+                    <th class = "text-center"> Nama Barang </th>
+                    <th class = "text-center"> Harga Satuan</th>
+                    <th class = "text-center"> Quantity </th>
+                    <th class = "text-center"> Jumlah Harga</th>
 
                 </tr>
 
